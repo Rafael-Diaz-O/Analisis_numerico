@@ -3,7 +3,7 @@ function [x1, x2] = ecuacion_cuadratica_rafael_diaz(a, b, c)
 % 1. Calcular el discriminante
 disc = b^2 - 4*a*c;
 
-% 2. Caso especial: si b == 0, usamos la fórmula estándar simplificada
+% 2. si b == 0, usamos la fórmula estándar simplificada
 if b == 0
     x1 = sqrt(-c/a);
     x2 = -sqrt(-c/a);
