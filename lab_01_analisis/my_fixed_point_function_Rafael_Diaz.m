@@ -23,3 +23,5 @@ function P = my_fixed_point_function_Rafael_Diaz(fun, a, b, p0, Iter)
     P = p;
 end
 
+%Nota: se deven graficar las derivadas 
+
