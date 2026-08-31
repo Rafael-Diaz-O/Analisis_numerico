@@ -54,3 +54,35 @@ end
 
 root = x_curr;
 end
+
+%test 
+% Script principal para la Parte II (Newton-Raphson)
+clear; clc; close all;
+
+% 1. Definir función y su derivada
+fun = @(x) x.^3 + 13*x.^2 - 287.5*x + 0.00000375*exp(x);
+der = @(x) 3*x.^2 + 26*x - 287.5 + 0.00000375*exp(x);
+
+% 2. Elegir puntos iniciales p0 para las tres raíces reales
+% La función cúbica se anula aprox en x ≈ -22.39, x ≈ 0 y x ≈ 11.45
+p0_list = [-25, 0, 12];
+tol = 1e-8;
+
+roots_found = zeros(1, 3);
+
+% 3. Ejecutar Newton-Raphson para cada punto inicial
+for i = 1:length(p0_list)
+    fprintf('\n=======================================================\n');
+    fprintf('BÚSQUEDA DE RAÍZ %d CON P0 = %.2f\n', i, p0_list(i));
+    fprintf('=======================================================\n');
+    
+    [r, ~, ~] = my_newton_function_nombre_apellido(fun, p0_list(i), der, tol);
+    roots_found(i) = r;
+end
+
+% 4. Resumen final de raíces
+fprintf('\n=======================================================\n');
+fprintf('RESUMEN DE RAÍCES ENCONTRADAS:\n');
+for i = 1:3
+    fprintf('Raíz %d: x = %.8f (P0 = %.2f)\n', i, roots_found(i), p0_list(i));
+end
