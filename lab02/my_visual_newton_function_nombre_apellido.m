@@ -68,3 +68,24 @@ plot(x_curr, 0, 'gx', 'MarkerSize', 10, 'LineWidth', 2, ...
 legend('Location', 'northeastoutside');
 hold off;
 end
+
+%testeo
+% Script de prueba para el ítem 4.1.3 (Visualización de Newton-Raphson)
+clear; clc; close all;
+
+% 1. Definición de la función y su derivada
+fun = @(x) x.^3 + 13*x.^2 - 287.5*x + 0.00000375*exp(x);
+der = @(x) 3*x.^2 + 26*x - 287.5 + 0.00000375*exp(x);
+
+% 2. Parámetros de prueba
+p0 = -25;
+Iter = 4;
+
+% 3. Llamar a la función de visualización
+P = my_visual_newton_function_nombre_apellido(fun, p0, der, Iter);
+
+% 4. Mostrar en consola el vector de iteraciones generado
+fprintf('=== VECTOR DE APROXIMACIONES P GENERADO ===\n');
+for i = 1:length(P)
+    fprintf('x_%d = %.8f\n', i-1, P(i));
+end
