@@ -85,3 +85,21 @@ try
 catch ME
     disp(ME.message);
 end
+
+%testeo
+
+% Script de prueba para la visualización del Método de la Bisección (Punto 3.3d)
+clear; clc; close all;
+
+% 1. Definir función y parámetros iniciales
+fun = @(x) (x - 8).*(x - 3);
+a = 1;
+b = 5;
+Iter = 6;
+
+% 2. Ejecutar la función de visualización
+P = my_visual_bisection_function_nombre_apellido(fun, a, b, Iter);
+
+% 3. Imprimir el vector de aproximaciones intermedias
+fprintf('=== PUNTOS MEDIOS GENERADOS EN CADA ITERACIÓN ===\n');
+disp(P');
