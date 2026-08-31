@@ -49,3 +49,22 @@ end
 
 root = c;
 end
+
+%testeo 
+
+% Script de prueba para la función de Bisección (Punto 3.3b)
+clear; clc;
+
+% 1. Definir función y parámetros iniciales
+fun = @(x) x.^2 - 5;
+a = 0;
+b = 2.5;
+Iter = 15;
+
+% 2. Llamar a la función
+root = my_bisection_function_nombre_apellido(fun, a, b, Iter);
+
+% 3. Mostrar el resultado
+fprintf('=== RESULTADO DEL MÉTODO DE LA BISECCIÓN ===\n');
+fprintf('Raíz aproximada tras %d iteraciones: %.6f\n', Iter, root);
+fprintf('Evaluación f(root): %.6e\n', fun(root));
