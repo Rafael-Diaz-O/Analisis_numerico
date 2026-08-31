@@ -55,3 +55,33 @@ function [a, b] = my_finding_interval_Rafael_Diaz(fun, step, max_iter)
     end
 end
 
+%Prueba en consola 
+
+% Script de prueba para la funcion my_finding_interval
+clear; clc;
+
+% 1. Definir una funcion de prueba continua con raiz
+% Ejemplo: f(x) = x^2 - 5  (raices en +- sqrt(5) ≈ +-2.236)
+fun = @(x) x.^2 - 5;
+
+% 2. Parametros de busqueda
+step_size = 0.5;
+max_iterations = 100;
+
+% 3. Llamar a la funcion
+try
+    [a, b] = my_finding_interval_nombre_apellido(fun, step_size, max_iterations);
+    
+    % 4. Mostrar resultados
+    fprintf('=== RESULTADO DE LA BÚSQUEDA ===\n');
+    fprintf('Intervalo encontrado: [%.4f, %.4f]\n', a, b);
+    fprintf('f(a) = %.4f\n', fun(a));
+    fprintf('f(b) = %.4f\n', fun(b));
+    fprintf('Producto f(a)*f(b) = %.4f\n', fun(a)*fun(b));
+    
+    if fun(a)*fun(b) < 0
+        fprintf('¡Éxito! El intervalo cumple la condición de Bolzano.\n');
+    end
+catch ME
+    disp(ME.message);
+end
