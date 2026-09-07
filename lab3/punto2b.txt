@@ -1,0 +1,38 @@
+clc; clear; close all;
+
+%% --- Parte 2.a ---
+m = 20;
+k = 2;
+v0 = 180;
+b0 = 55; % grados
+
+C = m / k;
+vx = v0 * cosd(b0);
+vy = v0 * sind(b0);
+
+% Function handle para y(t)
+fun = @(t) (C * vy + 32 * C^2) * (1 - exp(-t / C)) - 32 * C * t;
+
+%% --- Parte 2.b ---
+% Function handle para x(t)
+x_t = @(t) C * vx * (1 - exp(-t / C));
+
+% Llamada a la funcion de la Secante
+[tImpact, P, iterationTable] = my_secant_Rafael_Diaz(fun, 5, 10, 1e-4, 100);
+
+% Distancia recorrida horizontalmente
+distanceAtImpact = x_t(tImpact);
+
+%% --- Demo Output ---
+disp('C ='); disp(C);
+disp('vx ='); disp(vx);
+disp('vy ='); disp(vy);
+disp('fun ='); disp(fun);
+
+disp('======================================================');
+disp('               TABLA DE ITERACIONES                   ');
+disp('======================================================');
+disp(iterationTable);
+
+fprintf('tImpact = %.6f s\n', tImpact);
+fprintf('distanceAtImpact = %.6f ft\n', distanceAtImpact);
