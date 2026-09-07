@@ -1,0 +1,50 @@
+clc; clear; close all;
+
+% 1. Definición del sistema de ecuaciones Ax = b (Punto 4.a)
+A = [10  15  40;
+      0   1  -2;
+      1  -1  -1];
+
+b = [300; 0; 0];
+
+% 2. Matriz de permutación P definida manualmente (Punto 4.b)
+P = [1  0  0;
+     0  0  1;
+     0  1  0];
+
+% Permutar A y b
+PA = P * A;
+Pb = P * b;
+
+% 3. Factorización LU sobre PA usando tu función previa
+[L, U] = my_lu_rafael_diaz(PA);
+
+% 4. Resolución del sistema por sustitución
+% L*y = Pb (Sustitución hacia adelante)
+y = L \ Pb;
+
+% U*x = y (Sustitución hacia atrás)
+x = U \ y;
+
+% 5. Muestra de resultados requeridos en la consola
+PA_minus_LU = P*A - L*U;
+residual = norm(A*x - b);
+
+disp('Matriz de Permutación P ='); disp(P);
+disp('Matriz L ='); disp(L);
+disp('Matriz U ='); disp(U);
+disp('Vector permutado Pb ='); disp(Pb);
+disp('PA - L*U ='); disp(PA_minus_LU);
+disp('Vector intermedio y ='); disp(y);
+disp('Solución x ='); disp(x);
+disp('Residuo ||A*x - b|| ='); disp(residual);
+
+% Explicación en palabras como lo pide la guía
+fprintf('\n--------------------------------------------------\n');
+fprintf('RESULTADO EN PALABRAS:\n');
+fprintf('Sophia vendió:\n');
+fprintf('  - %d cuadros en miniatura (m)\n', round(x(1)));
+fprintf('  - %d cuadros de tamaño normal (n)\n', round(x(2)));
+fprintf('  - %d cuadros grandes (h)\n', round(x(3)));
+fprintf('--------------------------------------------------\n');
+

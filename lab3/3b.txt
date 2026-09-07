@@ -1,0 +1,40 @@
+clc; clear; close all;
+
+% Matriz A y vector b del problema
+A = [ 1  1  0  4;
+      2 -1  5  0;
+      5  2  1  2;
+     -3  0  2  5];
+
+b = [2; 10; -4; 18];
+
+%% --- Punto 3.b: Factorización LU con Pivoteo Parcial (P*A = L*U) ---
+% Usamos la función nativa lu() de MATLAB para obtener P, L y U
+[L_p, U_p, P] = lu(A);
+
+% Resolver P*A*x = P*b  =>  L*U*x = P*b
+% 1. Sustitución hacia adelante con el vector permutado: L*y = P*b
+y_p = L_p \ (P * b);
+
+% 2. Sustitución hacia atrás: U*x = y
+x_p = U_p \ y_p;
+
+%% --- Salida en Consola (Demo Output) ---
+disp('Matriz de Permutación P =');
+disp(P);
+
+disp('Matriz L (con pivoteo) =');
+disp(L_p);
+
+disp('Matriz U (con pivoteo) =');
+disp(U_p);
+
+disp('Vector intermedio y =');
+disp(y_p);
+
+disp('Solución x (con pivoteo) =');
+disp(x_p);
+
+% Verificación: Norma del error de reconstrucción ||P*A - L*U||
+disp('Norma del error ||P*A - L*U||:');
+disp(norm(P*A - L_p*U_p));
