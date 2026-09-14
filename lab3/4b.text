@@ -1,50 +1,40 @@
 clc; clear; close all;
 
-% 1. Definición del sistema de ecuaciones Ax = b (Punto 4.a)
+% 1. Formulación del sistema Ax = b (Punto 4.a)
 A = [10  15  40;
       0   1  -2;
       1  -1  -1];
 
 b = [300; 0; 0];
 
-% 2. Matriz de permutación P definida manualmente (Punto 4.b)
+% 2. Matriz de permutación P para evitar pivote nulo
 P = [1  0  0;
      0  0  1;
      0  1  0];
 
-% Permutar A y b
+% Permutación de A y b
 PA = P * A;
 Pb = P * b;
 
-% 3. Factorización LU sobre PA usando tu función previa
+% 3. Factorización LU sobre la matriz permutada
 [L, U] = my_lu_rafael_diaz(PA);
 
-% 4. Resolución del sistema por sustitución
-% L*y = Pb (Sustitución hacia adelante)
-y = L \ Pb;
+% 4. Resolución por sustitución
+y = L \ Pb; % L*y = Pb (Sustitución hacia adelante)
+x = U \ y;  % U*x = y  (Sustitución hacia atrás)
 
-% U*x = y (Sustitución hacia atrás)
-x = U \ y;
-
-% 5. Muestra de resultados requeridos en la consola
-PA_minus_LU = P*A - L*U;
-residual = norm(A*x - b);
-
+% 5. Impresión de resultados requeridos (Demo Output)
 disp('Matriz de Permutación P ='); disp(P);
 disp('Matriz L ='); disp(L);
 disp('Matriz U ='); disp(U);
 disp('Vector permutado Pb ='); disp(Pb);
-disp('PA - L*U ='); disp(PA_minus_LU);
+disp('PA - L*U ='); disp(P*A - L*U);
 disp('Vector intermedio y ='); disp(y);
 disp('Solución x ='); disp(x);
-disp('Residuo ||A*x - b|| ='); disp(residual);
+disp('Residuo ||A*x - b|| ='); disp(norm(A*x - b));
 
-% Explicación en palabras como lo pide la guía
+% 6. Explicación en palabras exigida por la guía
 fprintf('\n--------------------------------------------------\n');
-fprintf('RESULTADO EN PALABRAS:\n');
-fprintf('Sophia vendió:\n');
-fprintf('  - %d cuadros en miniatura (m)\n', round(x(1)));
-fprintf('  - %d cuadros de tamaño normal (n)\n', round(x(2)));
-fprintf('  - %d cuadros grandes (h)\n', round(x(3)));
+disp('RESULTADO EN PALABRAS:');
+fprintf('Sophia vendió %d cuadros en miniatura (m), %d cuadros de tamaño normal (n) y %d cuadros grandes (h).\n', round(x(1)), round(x(2)), round(x(3)));
 fprintf('--------------------------------------------------\n');
-
