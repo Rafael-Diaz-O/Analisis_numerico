@@ -64,31 +64,40 @@ legend('|cos(x)-P_3(x)|', '|cos(x)-P_7(x)|', 'Location', 'best');
 function mostrar_tabla_diferencias(X, D)
 % Muestra la tabla de diferencias divididas con columnas:
 % nodo, f(x), orden 1, orden 2, ..., orden n-1
-n = length(X);
-nombres = cell(1, n+1);
-nombres{1} = 'X';
-nombres{2} = 'f(X)';
-for k = 2:n-1
-    nombres{k+1} = sprintf('Orden%d', k-1);
-end
-T = array2table([X(:), D], 'VariableNames', nombres);
-disp(T);
+% (se imprime con fprintf; las posiciones sobre la diagonal quedan vacias)
+    n = length(X);
+    fprintf('%10s %12s', 'X', 'f(X)');
+    for k = 1:n-1
+        fprintf(' %12s', sprintf('Orden %d', k));
+    end
+    fprintf('\n');
+    for i = 1:n
+        fprintf('%10.4f %12.6f', X(i), D(i,1));
+        for j = 2:n
+            if isnan(D(i,j))
+                fprintf(' %12s', '');
+            else
+                fprintf(' %12.6f', D(i,j));
+            end
+        end
+        fprintf('\n');
+    end
 end
 
 function texto = forma_newton_texto(X, D)
 % Construye una cadena de texto con el polinomio de Newton en su forma
 % P(x) = c1 + c2*(x-x1) + c3*(x-x1)*(x-x2) + ...
-coefs = diag(D)';
-n = length(coefs);
-texto = sprintf('%.6g', coefs(1));
-factores = '';
-for k = 2:n
-    if coefs(k) >= 0
-        signo = ' + ';
-    else
-        signo = ' - ';
+    coefs = diag(D)';
+    n = length(coefs);
+    texto = sprintf('%.6g', coefs(1));
+    factores = '';
+    for k = 2:n
+        if coefs(k) >= 0
+            signo = ' + ';
+        else
+            signo = ' - ';
+        end
+        factores = [factores, sprintf('(x - %.4g)', X(k-1))];
+        texto = [texto, signo, sprintf('%.6g', abs(coefs(k))), factores];
     end
-    factores = [factores, sprintf('(x - %.4g)', X(k-1))];
-    texto = [texto, signo, sprintf('%.6g', abs(coefs(k))), factores];
-end
 end
